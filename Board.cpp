@@ -32,10 +32,12 @@ class Board{
         
         for (int i = 0; i<col->size(); i++) {
             if (i%2 == 0) {
-                
+                // col[i]line[j]_x = x_bdCtr-(line->size()/2)+0.5+j
+                // col[i]line[j]_z = [z_bdCtr+(boardlength/2)]-i
             }
             else if (i%2 ==1){
-                
+                // col[i]line[j]_x = x_bdCtr-(line->size()/2)+1+j
+                // col[i]line[j]_z = [z_bdCtr+(boardlength/2)]-i
             }
         }
     }
