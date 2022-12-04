@@ -34,20 +34,23 @@ class Board{
             if (i%2 == 0) {
                 // col[i]line[j]_x = x_bdCtr-(line->size()/2)+0.5+j
                 // col[i]line[j]_z = [z_bdCtr+(boardlength/2)]-i
+                // col[i]line[j].setcolor()
             }
             else if (i%2 ==1){
                 // col[i]line[j]_x = x_bdCtr-(line->size()/2)+1+j
                 // col[i]line[j]_z = [z_bdCtr+(boardlength/2)]-i
+                // col[i]line[j].setcolor()
             }
         }
     }
     
-    void chNeighball(){
+    void chNeighball(CSphere& ball){
         
     }
 
     void draw(){
-        
+        //ball.draw()
+        //wall.draw()
     }
     
     void bAttach(){
