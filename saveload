@@ -1,0 +1,45 @@
+#include<iostream>
+#include<cstdlib>
+#include<ctime>
+#include<fstream>
+using namespace std;
+
+const int gsize = 9, target = 5000;
+int score = 0, moves = 20;//denotes current user score
+
+void gamesave(int grid[][gsize + 3]);
+void gameload(int grid[][gsize + 3]);
+
+void gamesave(int grid[][gsize + 3])
+{
+	fstream fout;
+	fout.open("SaveData.txt", ios::out);
+	for (int i = 0; i < gsize; i++)
+	{
+		for (int j = 0; j < gsize; j++)
+		{
+			fout << grid[i][j] << " ";
+		}
+
+	}
+	fout << " " << score << " " << moves;
+	fout.close();
+}
+void gameload(int grid[][gsize + 3])
+{
+	fstream fin;
+	fin.open("SaveData.txt", ios::in);
+	for (int i = 0; i < gsize; i++)
+	{
+		for (int j = 0; j < gsize; j++)
+		{
+			fin >> grid[i][j];
+		}
+
+	}
+	fin >> score;
+	fin >> moves;
+	fin.close();
+	//cout <<score<< moves;
+
+}
