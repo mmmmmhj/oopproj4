@@ -102,12 +102,36 @@ class Board{
         }
     }
     
-    void draw(){
-        
-    }
+   
     
-    void bAttach(){
+     bool bAttach(int m, int n, CSphere& ball){
         
+        float bCent_x = ball.getCenter().x;
+        
+        if (m<sizeof(brd)/sizeof(*brd)-1) {
+            if (bCent_x >= brd[m][n]) {
+                if (m%2==0) {
+                    brd[m+1][n].setColor(ball.getColor());
+                    brd[m+1][n].setExist(ball.getExist());
+                }
+                else if(m%2==1){
+                    brd[m+1][n+1].setColor(ball.getColor());
+                    brd[m+1][n+1].setExist(ball.getExist());
+                }
+            }
+            else if (bCent_x < brd[m][n]){
+                if (m%2==0) {
+                    brd[m+1][n-1].setColor(ball.getColor());
+                    brd[m+1][n-1].setExist(ball.getExist());
+                }
+                else if(m%2==1){
+                    brd[m+1][n].setColor(ball.getColor());
+                    brd[m+1][n].setExist(ball.getExist());
+                }
+            }
+            return true;
+        }
+        else return false;
     }
     
     int bDetach(){
@@ -115,6 +139,10 @@ class Board{
     }
     
     void resume(){
+        
+    }
+    
+     void draw(){
         
     }
     
