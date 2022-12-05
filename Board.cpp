@@ -10,8 +10,6 @@ class Board {
 
 private:
     CSphere brd[10][8];
-    int col = 10;
-    int ror = 8;
     float x_bdCtr, y_bdCtr, z_bdCtr;
 
 public:
@@ -20,10 +18,10 @@ public:
     //            x_bdCtr = gamemanager.getcenter_x();
     //            y_bdCtr = gamemanager.getcenter_y();
     //            z_bdCtr = gamemanager.getcenter_z();
-
-
-
     //}
+
+
+
     Board(float X, float Y, float Z, IDirect3DDevice9* pDevice) {
 
         this->x_bdCtr = X;
@@ -55,8 +53,11 @@ public:
 
                 //set center만 넣어주세요
 
-                if (i > 3)
-                    brd[i][j].set_exist(false);
+                if (i > 4)
+                {
+                    brd[i][j].setExist(false);
+                    brd[i][j].setColor(d3d::MAGENTA);
+                }
             }
         }
 
@@ -133,7 +134,7 @@ public:
         {
             for (int j = 0; j < sizeof(brd) / sizeof(CSphere); j++) //col
             {
-                if (brd[i][j].ball_existance())
+                if (brd[i][j].getExist())
                     brd[i][j].draw(pDevice, mWorld);
             }
         }

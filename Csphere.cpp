@@ -145,8 +145,10 @@ void CSphere::setColor(const D3DXCOLOR ball_color)
         this->ball_color = 2;
     else if (ball_color == d3d::BLUE)
         this->ball_color = 3;
-    else
+    else if (ball_color == d3d::GREEN)
         this->ball_color = 4; //Green
+    else //magenta -> 0
+        this->ball_color = 0;
 }
 
 int CSphere::getColor()
