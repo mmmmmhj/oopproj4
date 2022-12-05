@@ -172,7 +172,7 @@ double CSphere::getPreCenter_z() const
 { return this->pre_center_z; }
 
 
-void CSphere::set_exist(bool a)
+void CSphere::setExist(bool a)
 {
     this->ball_exist = a;
 }

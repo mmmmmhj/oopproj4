@@ -55,7 +55,7 @@ public:
     double getPreCenter_x() const;
     double getPreCenter_z() const;
 
-    void set_exist(bool a);
+    void setExist(bool a);
 
     //bool already_thrown();
     //void set_thrown();
