@@ -14,6 +14,7 @@ private:
     float               m_velocity_z;
     bool ball_exist = true;
     bool is_thrown = false;
+
     int ball_color; // 1 - ³ë¶û 2- »¡°­ 3- ÆÄ¶û 4- ÃÊ·Ï
     float pre_center_x, pre_center_z;
 

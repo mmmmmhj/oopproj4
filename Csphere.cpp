@@ -12,7 +12,7 @@ CSphere::CSphere(void)
 
 CSphere::~CSphere(void) {}
 
-bool CSphere::create(IDirect3DDevice9* pDevice, D3DXCOLOR color = d3d::WHITE)
+bool CSphere::create(IDirect3DDevice9* pDevice, D3DXCOLOR color)
 {
     if (NULL == pDevice)
         return false;
