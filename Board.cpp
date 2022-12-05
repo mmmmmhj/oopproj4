@@ -148,8 +148,22 @@ public:
 
     }
 
-    void resume() {
+    void resume(int col, int row, float x, float y, float z, int color, bool exist) //공 하나의 정보 바꾸기
+    {
+        brd[row][col].setCenter(x, y, z);
 
+        if (color == 1)
+            brd[row][col].setColor(d3d::YELLOW);
+        else if (color == 2)
+            brd[row][col].setColor(d3d::RED);
+        else if (color == 3)
+            brd[row][col].setColor(d3d::BLUE);
+        else if (color == 4)
+            brd[row][col].setColor(d3d::GREEN);
+        else
+            brd[row][col].setColor(d3d::MAGENTA);
+
+        brd[row][col].setExist(exist);
     }
 
 };
