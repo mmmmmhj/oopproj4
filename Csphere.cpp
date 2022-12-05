@@ -118,7 +118,7 @@ void CSphere::setCenter(float x, float y, float z)
     setLocalTransform(m);
 }
 
-bool CSphere::ball_existance()
+bool CSphere::getExist()
 { return this->ball_exist; }
 
 float CSphere::getRadius(void)  const

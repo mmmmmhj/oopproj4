@@ -40,7 +40,7 @@ public:
 
     void setCenter(float x, float y, float z);
 
-    bool ball_existance();
+    bool getExist();
     float getRadius(void) const;
     const D3DXMATRIX& getLocalTransform(void) const;
     void setLocalTransform(const D3DXMATRIX& mLocal);
