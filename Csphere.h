@@ -14,6 +14,7 @@ private:
     float               m_velocity_z;
     bool ball_exist = true;
     bool is_thrown = false;
+    int chflag;
 
     int ball_color; // 1 - ³ë¶û 2- »¡°­ 3- ÆÄ¶û 4- ÃÊ·Ï
     float pre_center_x, pre_center_z;
@@ -54,8 +55,14 @@ public:
     double getPreCenter_x() const;
     double getPreCenter_z() const;
 
-    bool already_thrown();
-    void set_thrown();
+    void set_exist(bool a);
+
+    //bool already_thrown();
+    //void set_thrown();
+
+    int getChflag();
+
+    void setChflag(int val);
 
 private:
     D3DXMATRIX              m_mLocal;

@@ -8,6 +8,8 @@ CSphere::CSphere(void)
     m_velocity_x = 0;
     m_velocity_z = 0;
     m_pSphereMesh = NULL;
+
+    chflag = 0;
 }
 
 CSphere::~CSphere(void) {}
@@ -101,6 +103,7 @@ double CSphere::getVelocity_Z()
 { return this->m_velocity_z; }
 
 
+
 void CSphere::setPower(double vx, double vz)
 {
     this->m_velocity_x = vx;
@@ -169,8 +172,22 @@ double CSphere::getPreCenter_z() const
 { return this->pre_center_z; }
 
 
-bool CSphere::already_thrown()
-{ return this->is_thrown; }
+void CSphere::set_exist(bool a)
+{
+    this->ball_exist = a;
+}
 
-void CSphere::set_thrown()
-{ this->is_thrown = !this->is_thrown; }
+//bool CSphere::already_thrown()
+//{ return this->is_thrown; }
+//
+//void CSphere::set_thrown()
+//{ this->is_thrown = !this->is_thrown; }
+
+
+int CSphere::getChflag() {
+    return chflag;
+}
+
+void CSphere::setChflag(int val) {
+    chflag = val;
+}
