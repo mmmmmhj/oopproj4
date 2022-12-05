@@ -1,4 +1,4 @@
-#include "Csphere.h"
+#include "CSphere.h"
 
 CSphere::CSphere(void)
 {
@@ -54,6 +54,9 @@ bool CSphere::hasIntersected(CSphere& ball)
     double xDistance = abs((position_this.x - position_other.x) * (position_this.x - position_other.x));
     double zDistance = abs((position_this.z - position_other.z) * (position_this.z - position_other.z));
     double totalDistance = sqrt(xDistance + zDistance);
+
+    this->is_thrown = false;
+
     if (totalDistance < (this->getRadius() + ball.getRadius()))
     {
         return true;
@@ -61,30 +64,17 @@ bool CSphere::hasIntersected(CSphere& ball)
     return false;
 }
 
-void CSphere::hitBy(CSphere& ball)
+bool CSphere::colorcheck(CSphere& ball)
 {
     if (this->hasIntersected(ball))
     {
-        adjustPosition(ball);
-        //공과 공이 부딪히는거 
-        float dx = ball.getCenter().x - this->getCenter().x;
-        float dz = ball.getCenter().z - this->getCenter().z;
-        float distance = sqrt(dx * dx + dz * dz);
-
-        float bvx = ball.m_velocity_x;
-        float bvz = ball.m_velocity_z;
-
-        float velocity = sqrt(bvx * bvx + bvz * bvz);
-        float dt = velocity / distance;
-        ball.setPower(dx * dt, dz * dt);
-
-        if (this->ball_color == 0)
-        {
-            this->ball_exist = false;
-            this->setCenter(-100, -100, -100);
-        }
+        if(this->getColor() == ball.getColor())
+            return true;
     }
+    return false;
 }
+
+
 
 void CSphere::ballUpdate(float timeDiff)
 {
@@ -104,6 +94,13 @@ void CSphere::ballUpdate(float timeDiff)
     else { this->setPower(0, 0); }
 }
 
+double CSphere::getVelocity_X() 
+{ return this->m_velocity_x; }
+
+double CSphere::getVelocity_Z() 
+{ return this->m_velocity_z; }
+
+
 void CSphere::setPower(double vx, double vz)
 {
     this->m_velocity_x = vx;
@@ -118,22 +115,39 @@ void CSphere::setCenter(float x, float y, float z)
     setLocalTransform(m);
 }
 
+bool CSphere::ball_existance()
+{ return this->ball_exist; }
+
+float CSphere::getRadius(void)  const
+{ return (float)(M_RADIUS); }
+
+const D3DXMATRIX& CSphere::getLocalTransform(void) const
+{ return m_mLocal; }
+
+void CSphere::setLocalTransform(const D3DXMATRIX& mLocal)
+{ m_mLocal = mLocal; }
+
+
 D3DXVECTOR3 CSphere::getCenter(void) const
 {
     D3DXVECTOR3 org(center_x, center_y, center_z);
     return org;
 }
 
-
 void CSphere::setColor(const D3DXCOLOR ball_color)
 {
     if (ball_color == d3d::YELLOW)
-        this->ball_color = 0;
-    else if (ball_color == d3d::RED)
         this->ball_color = 1;
-    else
+    else if (ball_color == d3d::RED)
         this->ball_color = 2;
+    else if (ball_color == d3d::BLUE)
+        this->ball_color = 3;
+    else
+        this->ball_color = 4; //Green
 }
+
+int CSphere::getColor()
+{ return this->ball_color; }
 
 
 void CSphere::adjustPosition(CSphere& ball) {
@@ -148,3 +162,15 @@ void CSphere::adjustPosition(CSphere& ball) {
     }
 }
 
+double CSphere::getPreCenter_x() const
+{ return this->pre_center_x; }
+
+double CSphere::getPreCenter_z() const
+{ return this->pre_center_z; }
+
+
+bool CSphere::already_thrown()
+{ return this->is_thrown; }
+
+void CSphere::set_thrown()
+{ this->is_thrown = !this->is_thrown; }

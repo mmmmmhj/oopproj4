@@ -21,7 +21,7 @@ public:
     bool create(IDirect3DDevice9* pDevice, float ix, float iz, float iwidth, float iheight, float idepth, D3DXCOLOR color = d3d::WHITE);
     void destroy(void);
     void draw(IDirect3DDevice9* pDevice, const D3DXMATRIX& mWorld);
-    // 겹친걸 확인하고
+    // 겹친걸 확인하고 (던져지는 공만 확인하기) -> gamemanger 에서 관리 필요
     bool hasIntersected(CSphere& ball);
 
     // 충돌 구현 (속도의 방향 바꿔주기)
