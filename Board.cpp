@@ -263,4 +263,9 @@ public:
         brd[row][col].setExist(exist);
     }
 
+    CSphere getBall(int col, int row)
+    {
+        return this->brd[row][col];
+    }
+
 };
