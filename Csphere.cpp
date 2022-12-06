@@ -57,8 +57,6 @@ bool CSphere::hasIntersected(CSphere& ball)
     double zDistance = abs((position_this.z - position_other.z) * (position_this.z - position_other.z));
     double totalDistance = sqrt(xDistance + zDistance);
 
-    this->is_thrown = false;
-
     if (totalDistance < (this->getRadius() + ball.getRadius()))
     {
         return true;
