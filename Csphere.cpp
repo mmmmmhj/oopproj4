@@ -140,15 +140,40 @@ D3DXVECTOR3 CSphere::getCenter(void) const
 void CSphere::setColor(const D3DXCOLOR ball_color)
 {
     if (ball_color == d3d::YELLOW)
+    {
         this->ball_color = 1;
+        this->m_mtrl.Ambient = ball_color;
+        this->m_mtrl.Diffuse = ball_color;
+        this->m_mtrl.Specular = ball_color;
+    }
     else if (ball_color == d3d::RED)
+    {
         this->ball_color = 2;
+        this->m_mtrl.Ambient = ball_color;
+        this->m_mtrl.Diffuse = ball_color;
+        this->m_mtrl.Specular = ball_color;
+    }
     else if (ball_color == d3d::BLUE)
+    {
         this->ball_color = 3;
+        this->m_mtrl.Ambient = ball_color;
+        this->m_mtrl.Diffuse = ball_color;
+        this->m_mtrl.Specular = ball_color;
+    }
     else if (ball_color == d3d::GREEN)
+    {
         this->ball_color = 4; //Green
+        this->m_mtrl.Ambient = ball_color;
+        this->m_mtrl.Diffuse = ball_color;
+        this->m_mtrl.Specular = ball_color;
+    }
     else //magenta -> 0
+    {
         this->ball_color = 0;
+        this->m_mtrl.Ambient = ball_color;
+        this->m_mtrl.Diffuse = ball_color;
+        this->m_mtrl.Specular = ball_color;
+    }
 }
 
 int CSphere::getColor()

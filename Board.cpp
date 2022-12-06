@@ -41,29 +41,17 @@ public:
         {
             for (int j = 0; j < sizeof(brd[0]) / sizeof(CSphere); j++) //col
             {
-                
+                brd[i][j].create(pDevice);
 
                 int color = dis(gen);
                 if (color == 1)
-                {
-                    brd[i][j].create(pDevice, d3d::YELLOW);
                     brd[i][j].setColor(d3d::YELLOW);
-                }
                 else if (color == 2)
-                {
-                    brd[i][j].create(pDevice, d3d::RED);
                     brd[i][j].setColor(d3d::RED);
-                }
                 else if (color == 3)
-                {
-                    brd[i][j].create(pDevice, d3d::BLUE);
                     brd[i][j].setColor(d3d::BLUE);
-                }
                 else
-                {
-                    brd[i][j].create(pDevice, d3d::GREEN);
                     brd[i][j].setColor(d3d::GREEN);
-                }
 
                 if (i % 2 == 0) {
                     brd[i][j].setCenter(x_bdCtr - (sizeof(brd[0]) / sizeof(*brd[0]) / 2 - 0.5 - j) * brd[i][j].getRadius() / 0.5, 0, z_bdCtr + depth / 2 - i * brd[i][j].getRadius() / 0.5);
@@ -272,15 +260,26 @@ public:
         brd[row][col].setCenter(x, y, z);
 
         if (color == 1)
+        {
             brd[row][col].setColor(d3d::YELLOW);
+        }
         else if (color == 2)
+        {
             brd[row][col].setColor(d3d::RED);
+
+        }
         else if (color == 3)
+        {
             brd[row][col].setColor(d3d::BLUE);
+        }
         else if (color == 4)
+        {
             brd[row][col].setColor(d3d::GREEN);
+        }
         else
+        {
             brd[row][col].setColor(d3d::MAGENTA);
+        }
 
         brd[row][col].setExist(exist);
     }
