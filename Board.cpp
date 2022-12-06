@@ -36,7 +36,7 @@ public:
         mt19937 gen(rd());
         uniform_int_distribution<int> dis(1, 4);
 
-        // Áß½É ±âÁØÀ¸·Î °øÀÇ x z ÃÊ±âÁÂÇ¥ ¼³Á¤
+        // ì¤‘ì‹¬ ê¸°ì¤€ìœ¼ë¡œ ê³µì˜ x z ì´ˆê¸°ì¢Œí‘œ ì„¤ì •
 
         for (int i = 0; i < sizeof(brd) / sizeof(brd[0]); i++) //row
         {
@@ -55,7 +55,7 @@ public:
                 else
                     brd[i][j].setColor(d3d::GREEN);
 
-                //À§Ä¡ ÁöÁ¤
+                //ìœ„ì¹˜ ì§€ì •
                 if (i % 2 == 0) {
                     brd[i][j].setCenter(x_bdCtr - (sizeof(brd[0]) / sizeof(*brd[0]) / 2 - 0.5 - j) * brd[i][j].getRadius() / 0.5, 0, z_bdCtr + depth / 2 - i * brd[i][j].getRadius() / 0.5);
                 }
@@ -75,7 +75,7 @@ public:
     void destroy(int m, int n, int col) {
         this->chNeighball(m, n, col, 1);
 
-        //¹Ù¿î´õ¸® °ª °è»êÇÏ´Â ¹İº¹¹®
+        //ë°”ìš´ë”ë¦¬ ê°’ ê³„ì‚°í•˜ëŠ” ë°˜ë³µë¬¸
         for (int i = 0; i < sizeof(brd[0]) / sizeof(*brd[0]); i++) {
             if (brd[rBoundary][i].getExist())
                 break;
@@ -85,11 +85,11 @@ public:
 
             }
         }
-        // ÅÍ¶ß¸®´Â ¹İº¹¹®
+        // í„°ëœ¨ë¦¬ëŠ” ë°˜ë³µë¬¸
         for (int i = 0; i < rBoundary; i++) {
             for (int j = 0; i < sizeof(brd[0]) / sizeof(*brd[0]); j++) {
                 if (brd[i][j].getChflag() == 1) {
-                    //ÅÍ¶ß¸®´Â ¼³Á¤
+                    //í„°ëœ¨ë¦¬ëŠ” ì„¤ì •
                     brd[i][j].setExist(false);
                 }
             }
@@ -98,7 +98,7 @@ public:
     }
 
     void chNeighball(int m, int n, int col, int cs) {
-        //ball ¿¡ chflag Ãß°¡, getter, setter µµ ¸¶Âù°¡Áö
+        //ball ì— chflag ì¶”ê°€, getter, setter ë„ ë§ˆì°¬ê°€ì§€
         if (brd[m][n].getChflag() == 0) {
             if (brd[m][n].getColor() == col) {
                 brd[m][n].setChflag(cs);
@@ -248,7 +248,7 @@ public:
         if (*hei < rBoundary && *min < *max) {
             for (int i = *hei; i <= rBoundary; i++) {
                 for (int j = *min; j <= *max; j++) {
-                    //ÅÍ¶ß¸®±â
+                    //í„°ëœ¨ë¦¬ê¸°
                     brd[i][j].setExist(false);
                 }
             }
@@ -256,7 +256,7 @@ public:
 
     }
 
-    void resume(int col, int row, float x, float y, float z, int color, bool exist) //°ø ÇÏ³ªÀÇ Á¤º¸ ¹Ù²Ù±â
+    void resume(int col, int row, float x, float y, float z, int color, bool exist) //ê³µ í•˜ë‚˜ì˜ ì •ë³´ ë°”ê¾¸ê¸°
     {
         brd[row][col].setCenter(x, y, z);
 
