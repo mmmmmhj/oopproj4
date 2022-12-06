@@ -294,4 +294,17 @@ public:
         return this->brd[row][col];
     }
 
+    int getRow()
+    {
+        return sizeof(brd) / sizeof(brd[0]);
+    }
+
+    int getCol()
+    {
+        return sizeof(brd[0]) / sizeof(CSphere);
+    }
+
 };
+
+
+
