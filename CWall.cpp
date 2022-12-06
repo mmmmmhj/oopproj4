@@ -92,7 +92,8 @@ void CWall::hitBy(CSphere& ball)
         this->adjustPosition(ball);
         if (this->wall_position == 0) // À­º®
         {
-            ball.setPower(ball.getVelocity_X(), -ball.getVelocity_Z());
+            //ball.setPower(ball.getVelocity_X(), -ball.getVelocity_Z());
+            return;
         }
         else if (this->wall_position == 1) //¾Æ·¡
         {
