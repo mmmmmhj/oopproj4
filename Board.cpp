@@ -40,7 +40,7 @@ public:
 
         for (int i = 0; i < sizeof(brd) / sizeof(brd[0]); i++) //row
         {
-            for (int j = 0; j < sizeof(brd) / sizeof(CSphere); j++) //col
+            for (int j = 0; j < sizeof(brd[0]) / sizeof(CSphere); j++) //col
             {
                 
 				brd[i][j].create(pDevice);
@@ -74,7 +74,8 @@ public:
 
     void destroy(int m, int n, int col) {
         this->chNeighball(m, n, col, 1);
-        
+
+        //바운더리 값 계산하는 반복문
         for (int i = 0; i < sizeof(brd[0]) / sizeof(*brd[0]); i++) {
             if (brd[rBoundary][i].getExist())
                 break;
@@ -82,6 +83,15 @@ public:
                 i = -1;
                 rBoundary--;
 
+            }
+        }
+        // 터뜨리는 반복문
+        for (int i = 0; i < rBoundary; i++) {
+            for (int j = 0; i < sizeof(brd[0]) / sizeof(*brd[0]); j++) {
+                if (brd[i][j].getChflag() == 1) {
+                    //터뜨리는 설정
+                    brd[i][j].setExist(false);
+                }
             }
         }
 
@@ -138,7 +148,7 @@ public:
     void draw(IDirect3DDevice9* pDevice, const D3DXMATRIX& mWorld) {
         for (int i = 0; i < sizeof(brd) / sizeof(brd[0]); i++) //row
         {
-            for (int j = 0; j < sizeof(brd) / sizeof(CSphere); j++) //col
+            for (int j = 0; j < sizeof(brd[0]) / sizeof(CSphere); j++) //col
             {
                 if (brd[i][j].getExist())
                     brd[i][j].draw(pDevice, mWorld);
@@ -239,6 +249,7 @@ public:
             for (int i = *hei; i <= rBoundary; i++) {
                 for (int j = *min; j <= *max; j++) {
                     //터뜨리기
+                    brd[i][j].setExist(false);
                 }
             }
         }
