@@ -36,7 +36,6 @@ public:
         mt19937 gen(rd());
         uniform_int_distribution<int> dis(1, 4);
 
-        // 중심 기준으로 공의 x z 초기좌표 설정
 
         for (int i = 0; i < sizeof(brd) / sizeof(brd[0]); i++) //row
         {
@@ -55,7 +54,6 @@ public:
                 else
                     brd[i][j].setColor(d3d::GREEN);
 
-                //위치 지정
                 if (i % 2 == 0) {
                     brd[i][j].setCenter(x_bdCtr - (sizeof(brd[0]) / sizeof(*brd[0]) / 2 - 0.5 - j) * brd[i][j].getRadius() / 0.5, 0, z_bdCtr + depth / 2 - i * brd[i][j].getRadius() / 0.5);
                 }
@@ -75,7 +73,8 @@ public:
     void destroy(int m, int n, int col) {
         this->chNeighball(m, n, col, 1);
 
-        //바운더리 값 계산하는 반복문
+        //�ٿ���� �� ����ϴ� �ݺ���
+        
         for (int i = 0; i < sizeof(brd[0]) / sizeof(*brd[0]); i++) {
             if (brd[rBoundary][i].getExist())
                 break;
@@ -85,20 +84,28 @@ public:
 
             }
         }
-        // 터뜨리는 반복문
+        // �Ͷ߸��� �ݺ���
         for (int i = 0; i < rBoundary; i++) {
             for (int j = 0; i < sizeof(brd[0]) / sizeof(*brd[0]); j++) {
                 if (brd[i][j].getChflag() == 1) {
-                    //터뜨리는 설정
+                    //�Ͷ߸��� ����
                     brd[i][j].setExist(false);
                 }
             }
         }
 
+	   for (int i = 0; i<rBoundary; i++){
+		   for( int j = 0; i< sizeof(brd[0])/sizeof(*brd[0]); j++){
+			   if(brd[i][j].getChflag() == 1){
+                   brd[i][j].setExist(false);
+			   }
+		   }
+	   }
+
     }
 
     void chNeighball(int m, int n, int col, int cs) {
-        //ball 에 chflag 추가, getter, setter 도 마찬가지
+        //ball ??chflag 추�?, getter, setter ??마찬가지
         if (brd[m][n].getChflag() == 0) {
             if (brd[m][n].getColor() == col) {
                 brd[m][n].setChflag(cs);
@@ -248,7 +255,7 @@ public:
         if (*hei < rBoundary && *min < *max) {
             for (int i = *hei; i <= rBoundary; i++) {
                 for (int j = *min; j <= *max; j++) {
-                    //터뜨리기
+                    //�Ͷ߸���
                     brd[i][j].setExist(false);
                 }
             }
@@ -256,7 +263,7 @@ public:
 
     }
 
-    void resume(int col, int row, float x, float y, float z, int color, bool exist) //공 하나의 정보 바꾸기
+    void resume(int col, int row, float x, float y, float z, int color, bool exist) 
     {
         brd[row][col].setCenter(x, y, z);
 
