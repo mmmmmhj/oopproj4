@@ -89,6 +89,8 @@ public:
                 if (brd[i][j].getChflag() == 1) {
                     //ÅÍ¶ß¸®´Â ¼³Á¤
                     brd[i][j].setExist(false);
+                    brd[i][j].setColor(d3d::MAGENTA);
+
                 }
             }
         }
@@ -247,8 +249,11 @@ public:
             for (int i = *hei; i <= rBoundary; i++) {
                 for (int j = *min; j <= *max; j++) {
                     //ÅÍ¶ß¸®±â
-                    if(brd[i][j].getChflag() == -2)
+                    if (brd[i][j].getChflag() == -2)
+                    {
                         brd[i][j].setExist(false);
+                        brd[i][j].setColor(d3d::MAGENTA);
+                    }
                 }
             }
         }

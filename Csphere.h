@@ -13,7 +13,6 @@ private:
     float               m_velocity_x;
     float               m_velocity_z;
     bool ball_exist = true;
-    bool is_thrown = false;
     int chflag;
 
     int ball_color; // 1 - ³ë¶û 2- »¡°­ 3- ÆÄ¶û 4- ÃÊ·Ï
@@ -49,20 +48,18 @@ public:
 
     void setColor(const D3DXCOLOR ball_color);
     int getColor();
-    void adjustPosition(CSphere& ball);
-
 
     double getPreCenter_x() const;
     double getPreCenter_z() const;
 
     void setExist(bool a);
 
-    //bool already_thrown();
-    //void set_thrown();
 
     int getChflag();
 
     void setChflag(int val);
+
+    float getDistance(CSphere& ball);
 
 private:
     D3DXMATRIX              m_mLocal;

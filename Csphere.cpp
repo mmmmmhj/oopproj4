@@ -179,19 +179,6 @@ void CSphere::setColor(const D3DXCOLOR ball_color)
 int CSphere::getColor()
 { return this->ball_color; }
 
-
-void CSphere::adjustPosition(CSphere& ball) {
-    D3DXVECTOR3 ball_cord = ball.getCenter();
-
-    this->setCenter((center_x + this->pre_center_x) / 2, center_y, (center_z + this->pre_center_z) / 2);
-    ball.setCenter((ball_cord.x + ball.pre_center_x) / 2, ball_cord.y, (ball_cord.z + ball.pre_center_z) / 2);
-    if (this->hasIntersected(ball))
-    {
-        this->setCenter(this->pre_center_x, center_y, this->pre_center_z);
-        ball.setCenter(ball.pre_center_x, ball_cord.y, ball.pre_center_z);
-    }
-}
-
 double CSphere::getPreCenter_x() const
 { return this->pre_center_x; }
 
@@ -204,17 +191,25 @@ void CSphere::setExist(bool a)
     this->ball_exist = a;
 }
 
-//bool CSphere::already_thrown()
-//{ return this->is_thrown; }
-//
-//void CSphere::set_thrown()
-//{ this->is_thrown = !this->is_thrown; }
-
-
 int CSphere::getChflag() {
     return chflag;
 }
 
 void CSphere::setChflag(int val) {
     chflag = val;
+}
+
+float CSphere::getDistance(CSphere& ball)
+{
+    float ax, az, bx, bz, temp, distance;
+
+    ax = this->getCenter().x;
+    az = this->getCenter().z;
+    bx = ball.getCenter().x;
+    bz = ball.getCenter().z;
+
+    temp = (ax - bx) * (ax - bx) + (az - bz) * (az - bz);
+    distance = sqrt(temp);
+
+    return distance;
 }
