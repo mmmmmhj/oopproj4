@@ -47,6 +47,7 @@ public:
     D3DXVECTOR3 getCenter(void) const;
 
     void setColor(const D3DXCOLOR ball_color);
+    void revColor(int color);
     int getColor();
 
     double getPreCenter_x() const;
