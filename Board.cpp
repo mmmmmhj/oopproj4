@@ -1,4 +1,4 @@
-#include <stdio.h>
+ï»¿#include <stdio.h>
 #include <vector>
 #include "CWall.h"
 #include "CSphere.h"
@@ -10,6 +10,7 @@ class Board {
 
 private:
     CSphere brd[10][8];
+    CSphere extBrd[15];
     float x_bdCtr, y_bdCtr, z_bdCtr;
     int rBoundary;
     int empFl = -3;
@@ -57,7 +58,7 @@ public:
                     brd[i][j].setCenter(x_bdCtr - (sizeof(brd[0]) / sizeof(*brd[0]) / 2 - 0.5 - j) * brd[i][j].getRadius() / 0.5, 0, z_bdCtr + depth / 2 - i * brd[i][j].getRadius() / 0.5);
                 }
                 else if (i % 2 == 1) {
-                    brd[i][j].setCenter(x_bdCtr - (sizeof(brd[0]) / sizeof(*brd[0]) / 2 - j) * brd[i][j].getRadius(), 0, z_bdCtr + depth / 2 - i * brd[i][j].getRadius());
+                    brd[i][j].setCenter(x_bdCtr - (sizeof(brd[0]) / sizeof(*brd[0]) / 2 - j) * brd[i][j].getRadius() / 0.5, 0, z_bdCtr + depth / 2 - i * brd[i][j].getRadius() / 0.5);
                 }
 
                 if (i > 3)
@@ -69,11 +70,11 @@ public:
         }
     }
 
-    void destroy(int m, int n, int col) {
+    int destroy(int m, int n, int col) {
         this->chNeighball(m, n, col, 1);
 
-        //¹Ù¿î´õ¸® °ª °è»êÇÏ´Â ¹İº¹¹®
-        
+        //ë°”ìš´ë”ë¦¬ ê°’ ê³„ì‚°í•˜ëŠ” ë°˜ë³µë¬¸
+        int hit = 0;
         for (int i = 0; i < sizeof(brd[0]) / sizeof(*brd[0]); i++) {
             if (brd[rBoundary][i].getExist())
                 break;
@@ -83,22 +84,24 @@ public:
 
             }
         }
-        // ÅÍ¶ß¸®´Â ¹İº¹¹®
+        // í„°ëœ¨ë¦¬ëŠ” ë°˜ë³µë¬¸
         for (int i = 0; i < rBoundary; i++) {
             for (int j = 0; i < sizeof(brd[0]) / sizeof(*brd[0]); j++) {
                 if (brd[i][j].getChflag() == 1) {
-                    //ÅÍ¶ß¸®´Â ¼³Á¤
+                    //í„°ëœ¨ë¦¬ëŠ” ì„¤ì •
                     brd[i][j].setExist(false);
                     brd[i][j].setColor(d3d::MAGENTA);
-
+                    hit++;
                 }
             }
         }
 
+        return hit;
+
     }
 
     void chNeighball(int m, int n, int col, int cs) {
-        //ball ??chflag ì¶”ê?, getter, setter ??ë§ˆì°¬ê°€ì§€
+        //ball ??chflag ç•°ë¶½?, getter, setter ??ï§ë‰ê°”åª›Â€ï§Â€
         if (brd[m][n].getChflag() == 0) {
             if (brd[m][n].getColor() == col) {
                 brd[m][n].setChflag(cs);
@@ -161,24 +164,36 @@ public:
         float bCent_x = ball.getCenter().x;
 
         if (m < sizeof(brd) / sizeof(*brd) - 1) {
+            if (m == -1 && n == -1) {
+                int i;
+                for (i = 0; i < sizeof(extBrd) / sizeof(*extBrd); i++) {
+                    if (!extBrd[i].getExist()) {
+                        break;
+                    }
+                }
+                extBrd[i].setColor(ball.getColor());
+                extBrd[i].setCenter(ball.getCenter().x, ball.getCenter().y, ball.getCenter().z);
+                extBrd[i].setExist(true);
+
+            }
             if (bCent_x >= brd[m][n].getCenter().x) {
                 if (m % 2 == 0) {
                     brd[m + 1][n].setColor(ball.getColor());
-                    brd[m + 1][n].setExist(ball.getExist());
+                    brd[m + 1][n].setExist(true);
                 }
                 else if (m % 2 == 1) {
                     brd[m + 1][n + 1].setColor(ball.getColor());
-                    brd[m + 1][n + 1].setExist(ball.getExist());
+                    brd[m + 1][n + 1].setExist(true);
                 }
             }
             else if (bCent_x < brd[m][n].getCenter().x) {
                 if (m % 2 == 0) {
                     brd[m + 1][n - 1].setColor(ball.getColor());
-                    brd[m + 1][n - 1].setExist(ball.getExist());
+                    brd[m + 1][n - 1].setExist(true);
                 }
                 else if (m % 2 == 1) {
                     brd[m + 1][n].setColor(ball.getColor());
-                    brd[m + 1][n].setExist(ball.getExist());
+                    brd[m + 1][n].setExist(true);
                 }
             }
             rBoundary++;
@@ -186,6 +201,7 @@ public:
         }
         else return false;
     }
+
 
     void chEmpty(int m, int n, int* hMax, int* wMin, int* wMax) {
 
@@ -233,6 +249,7 @@ public:
         int* min;
         int* max;
         int* hei;
+        int hit = 0;
 
         for (i = 0; i < sizeof(brd[0]) / sizeof(*brd[0]); i++) {
             if (brd[rBoundary][i].getColor() == 0)
@@ -248,16 +265,18 @@ public:
         if (*hei < rBoundary && *min < *max) {
             for (int i = *hei; i <= rBoundary; i++) {
                 for (int j = *min; j <= *max; j++) {
-                    //ÅÍ¶ß¸®±â
+                    //í„°ëœ¨ë¦¬ê¸°
                     if (brd[i][j].getChflag() == -2)
                     {
                         brd[i][j].setExist(false);
                         brd[i][j].setColor(d3d::MAGENTA);
+                        hit++;
                     }
                 }
             }
         }
 
+        return hit;
     }
 
     void resume(int col, int row, float x, float y, float z, int color, bool exist) 
@@ -289,7 +308,7 @@ public:
         brd[row][col].setExist(exist);
     }
 
-    CSphere getBall(int col, int row)
+    CSphere getBall(int row, int col)
     {
         return this->brd[row][col];
     }
